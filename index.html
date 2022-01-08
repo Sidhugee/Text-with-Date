@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Number Details</title>
+</head>
+
+<body class="bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card bg-success text-light mt-5 p-4" style="border-radius: 40px;">
+                    <h1 class="fw-bold text-center" style="color: rgb(100, 4, 4);"><i>Number Facts</i></h1>
+                    <p class="text-center" style="color: darkblue;"><i>Enter a number and get a random fact</i></p>
+                    <input type="number" class="form-control form-control-lg rounded-pill " id="numberInput" placeholder="Enter any number...">
+                    <div id="card" class="card-body">
+                        <h4 class="card-title text-center">
+                            <i> ---Result---</i>
+                        </h4>
+                        <p id="card_text" class="card-text text-dark fw-bolder rounded-pill bg-gradient p-2"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+        let card = document.querySelector('#card');
+        let card_Text = document.querySelector('#card_text');
+
+        let numberInput = document.querySelector('#numberInput');
+        numberInput.addEventListener('input', getFactAjax);
+
+        // Fetch with XHR
+        function getFactAjax() {
+            let number = numberInput.value;
+            if (number != '') {
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', 'http://numbersapi.com/' + number);
+
+                xhr.onload = function() {
+                    if (this.status == 200) {
+                        card.style.display = 'block';
+
+
+                        card_text.innerText = `"` + this.responseText + `"`;
+                    }
+                }
+
+                xhr.send();
+            }
+        }
+    </script>
+</body>
+
+</html>
